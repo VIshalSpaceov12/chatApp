@@ -13,10 +13,12 @@
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.4",
     "react-redux": "^9.2.0",
-    "socket.io-client": "^4.8.3"
+    "socket.io-client": "^4.8.3",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^25.2.0",
+    "@types/uuid": "^10.0.0",
     "typescript": "^5.9.3"
   }
 }
