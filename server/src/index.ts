@@ -6,9 +6,14 @@ import { createServer } from 'http';
 
 import authRoutes from './routes/auth';
 import conversationRoutes from './routes/conversations';
+import { initializeSocket } from './socket';
+import { connectRedis } from './services/redisClient';
 
 const app = express();
 const httpServer = createServer(app);
+
+// Initialize Socket.io
+const io = initializeSocket(httpServer);
 
 // Middleware
 app.use(helmet());
@@ -26,8 +31,13 @@ app.get('/health', (_, res) => {
 
 const PORT = process.env.PORT || 3001;
 
-httpServer.listen(PORT, () => {
-  console.log(`Chat server running on port ${PORT}`);
-});
+const start = async () => {
+  await connectRedis();
+  httpServer.listen(PORT, () => {
+    console.log(`Chat server running on port ${PORT}`);
+  });
+};
 
-export { app, httpServer };
+start();
+
+export { app, httpServer, io };
